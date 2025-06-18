@@ -41,6 +41,16 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// GET: Fetch current user's posts
+router.get('/myposts', authMiddleware, async (req, res) => {
+  try {
+    const items = await LostItem.find({ user: req.user.id });
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // ✅ NEW ROUTES:
 
